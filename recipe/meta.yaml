@@ -7,32 +7,46 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/c/{{ name }}/custom_inherit-{{ version }}.tar.gz
-  sha256: 7052eb337bcce83551815264391cc4efc2bf70b295a3c52aba64f1ab57c3a8a2
+  url: https://github.com/rsokl/{{ name.split('-')[0] }}_{{ name.split('-')[1] }}/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: ee1968bf4b1d22310e6a76a58ad9b0c99876d9bf9239b3b99c7e2aff857e9e68
 
 build:
   number: 0
-  noarch: python
-  script: '{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv '
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
   host:
+    - python
     - pip
-    - python >=3.6
+    - setuptools
+    - wheel
   run:
-    - python >=3.6
+    - python
 
 test:
+  source_files:
+    - tests
   imports:
     - custom_inherit
+  requires:
+    - pip
+    - pytest
+    - six
+  commands:
+    - pip check
+    - pytest tests
 
 about:
   home: https://github.com/rsokl/custom_inherit
   license: MIT
   license_family: MIT
   license_file: LICENSE.md
-  summary: A Python package that provides customized docstring inheritance schemes between derived classes and their parents.
-  doc_url: https://github.com/rsokl/custom_inherit/blob/master/README.md
+  summary: A Python package that provides customized docstring inheritance schemes.
+  description: |
+    The Python package custom_inherit provides convenient, light-weight tools for inheriting docstrings in
+    customizeable ways.
+  doc_url: https://github.com/rsokl/custom_inherit
+  dev_url: https://github.com/rsokl/custom_inherit
 
 extra:
   recipe-maintainers:
