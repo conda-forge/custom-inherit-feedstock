@@ -7,8 +7,8 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/c/{{ name }}/custom_inherit-{{ version }}.tar.gz
-  sha256: 7052eb337bcce83551815264391cc4efc2bf70b295a3c52aba64f1ab57c3a8a2
+  url: https://github.com/rsokl/{{ name.split('-')[0] }}_{{ name.split('-')[1] }}/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: ee1968bf4b1d22310e6a76a58ad9b0c99876d9bf9239b3b99c7e2aff857e9e68
 
 build:
   number: 0
@@ -24,12 +24,17 @@ requirements:
     - python
 
 test:
+  source_files:
+    - tests
   imports:
     - custom_inherit
   requires:
     - pip
+    - pytest
+    - six
   commands:
     - pip check
+    - pytest tests
 
 about:
   home: https://github.com/rsokl/custom_inherit
