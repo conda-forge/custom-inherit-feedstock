@@ -13,14 +13,16 @@ source:
 build:
   number: 0
   noarch: python
-  script: '{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv '
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
   host:
+    - python
     - pip
-    - python >=3.6
+    - setuptools
+    - wheel
   run:
-    - python >=3.6
+    - python
 
 test:
   imports:
@@ -31,7 +33,10 @@ about:
   license: MIT
   license_family: MIT
   license_file: LICENSE.md
-  summary: A Python package that provides customized docstring inheritance schemes between derived classes and their parents.
+  summary: A Python package that provides customized docstring inheritance schemes.
+  description: |
+    The Python package custom_inherit provides convenient, light-weight tools for inheriting docstrings in
+    customizeable ways.
   doc_url: https://github.com/rsokl/custom_inherit/blob/master/README.md
 
 extra:
