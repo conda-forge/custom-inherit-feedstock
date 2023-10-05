@@ -12,7 +12,6 @@ source:
 
 build:
   number: 0
-  noarch: python
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
@@ -27,6 +26,10 @@ requirements:
 test:
   imports:
     - custom_inherit
+  requires:
+    - pip
+  commands:
+    - pip check
 
 about:
   home: https://github.com/rsokl/custom_inherit
@@ -37,7 +40,8 @@ about:
   description: |
     The Python package custom_inherit provides convenient, light-weight tools for inheriting docstrings in
     customizeable ways.
-  doc_url: https://github.com/rsokl/custom_inherit/blob/master/README.md
+  doc_url: https://github.com/rsokl/custom_inherit
+  dev_url: https://github.com/rsokl/custom_inherit
 
 extra:
   recipe-maintainers:
